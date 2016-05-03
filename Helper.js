@@ -48,8 +48,8 @@ function objToObjCopy(s, t) {
             if (!(e instanceof AuthError))
                 throw e
 
-            if (window.localStorage.getItem('state') && window.localStorage.getItem('state') === params.state) {
-                window.localStorage.removeItem('state')
+            if (localStorage.state && localStorage.state === params.state) {
+                delete localStorage.state
 
                 h.auth.authorization_code = params.code
                 h.auth.setup(null, function () {
@@ -57,7 +57,7 @@ function objToObjCopy(s, t) {
                 })
             } else {
                 var state = Math.random()
-                window.localStorage.setItem('state', state)
+                localStorage.state = state
 
                 window.location = 'https://login.eveonline.com/oauth/authorize/?' +
                     'response_type=code&' +

@@ -6,7 +6,7 @@ var Auth = (function () {
     function Auth() { }
     Auth.prototype.setup = function (req, call) {
         if (this.loc && !this.token) {
-            var stored = JSON.parse(window.localStorage.getItem('auth ' + this.loc.href))
+            var stored = JSON.parse(localStorage['auth ' + this.loc.href])
             if (stored)
                 objToObjCopy(stored, this)
         }
@@ -48,12 +48,12 @@ var Auth = (function () {
 
                 this.refresh_token = res.refresh_token
 
-                window.localStorage.setItem('auth ' + this.loc.href, JSON.stringify({
+                localStorage['auth ' + this.loc.href] = JSON.stringify({
                     type: this.type,
                     token: this.token,
                     expire: this.expire,
                     refresh_token: this.refresh_token
-                }))
+                })
 
                 if (req && req.setRequestHeader)
                     req.setRequestHeader('Authorization', this.type + ' ' + this.token)
