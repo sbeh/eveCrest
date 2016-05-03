@@ -7,7 +7,7 @@ var Href = (function () {
             options.method = 'GET'
 
         if (VERBOSE)
-            console.log('>> ' + options.method + ' ' + this.href + (options.data ? ' ' + JSON.stringify(options.data) : ''))
+            console.log('>> ' + options.method + ' ' + this.href + (options.data ? '\n   ' + JSON.stringify(options.data) : ''))
 
         var req = new XMLHttpRequest()
 
