@@ -4,11 +4,6 @@ var APP = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 var SECRET = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 var VERBOSE = false
 
-function objToObjCopy(s, t) {
-    Object.keys(s).forEach(function (k) {
-        t[k] = s[k]
-    })
-}
 
 (function startup() {
     var params = {};

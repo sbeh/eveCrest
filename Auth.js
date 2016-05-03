@@ -8,7 +8,7 @@ var Auth = (function () {
         if (this.loc && !this.token) {
             var stored = localStorage['auth ' + this.loc.href]
             if (stored)
-                objToObjCopy(JSON.parse(stored), this)
+                Object.assign(this, JSON.parse(stored))
         }
 
         if (this.token && (!this.expire || this.expire > new Date())) {

@@ -63,7 +63,7 @@ var Href = (function () {
 
                                 co.root_href = this.root_href || this
 
-                                objToObjCopy(con[i], co)
+                                Object.assign(co, con[i])
 
                                 con[i] = co
                             }
@@ -72,7 +72,7 @@ var Href = (function () {
                 }.bind(this)
                 rec(res)
 
-                objToObjCopy(res, this)
+                Object.assign(this, res)
 
                 if (call)
                     call()
