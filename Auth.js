@@ -25,16 +25,16 @@ var Auth = (function () {
             if (this.authorization_code) {
                 // setup new SSO authorization, requesting first access_code
                 data = {
-                    'grant_type': 'authorization_code',
-                    'code': this.authorization_code
+                    grant_type: 'authorization_code',
+                    code: this.authorization_code
                 }
                 // authorization codes are one-time codes
                 delete this.authorization_code
             } else
                 // SSO authorization known, requesting fresh access_code
                 data = {
-                    'grant_type': 'refresh_token',
-                    'refresh_token': this.refresh_token
+                    grant_type: 'refresh_token',
+                    refresh_token: this.refresh_token
                 }
 
             this.request_auth.submit(data, function (res) {
@@ -49,10 +49,10 @@ var Auth = (function () {
                 this.refresh_token = res.refresh_token
 
                 window.localStorage.setItem('auth ' + this.loc.href, JSON.stringify({
-                    'type': this.type,
-                    'token': this.token,
-                    'expire': this.expire,
-                    'refresh_token': this.refresh_token
+                    type: this.type,
+                    token: this.token,
+                    expire: this.expire,
+                    refresh_token: this.refresh_token
                 }))
 
                 if (req && req.setRequestHeader)

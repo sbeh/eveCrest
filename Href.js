@@ -40,8 +40,8 @@ var Href = (function () {
     }
     Href.prototype.get = function (call) {
         this.request({
-            'method': 'GET',
-            'finish': function (res) {
+            method: 'GET',
+            finish: function (res) {
                 Object.keys(this).forEach(function (i) {
                     switch (i) {
                         case 'href':
@@ -81,34 +81,34 @@ var Href = (function () {
     }
     Href.prototype.submit = function (data, call) {
         this.request({
-            'method': 'POST',
-            'setup': function (req) {
+            method: 'POST',
+            setup: function (req) {
                 req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             },
-            'data': Object.keys(data).map(function (i) {
+            data: Object.keys(data).map(function (i) {
                 return encodeURIComponent(i) + '=' + encodeURIComponent(data[i])
             }).join('&'),
-            'finish': call
+            finish: call
         })
     }
     Href.prototype.post = function (data, call) {
         this.request({
-            'method': 'POST',
-            'data': JSON.stringify(data),
-            'finish': call
+            method: 'POST',
+            data: JSON.stringify(data),
+            finish: call
         })
     }
     Href.prototype.put = function (data, call) {
         this.request({
-            'method': 'PUT',
-            'data': JSON.stringify(data),
-            'finish': call
+            method: 'PUT',
+            data: JSON.stringify(data),
+            finish: call
         })
     }
     Href.prototype.delete = function (call) {
         this.request({
-            'method': 'DELETE',
-            'finish': call
+            method: 'DELETE',
+            finish: call
         })
     }
     return Href
