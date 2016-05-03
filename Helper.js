@@ -12,7 +12,7 @@ function objToObjCopy(s, t) {
 
 (function startup() {
     var params = {};
-    var p = window.location.search.substring(1).split(/[&=]/);
+    var p = location.search.substring(1).split(/[&=]/);
     for (var i = 0; i < p.length; i += 2)
         params[decodeURIComponent(p[i])] = decodeURIComponent(p[i + 1]);
 
@@ -53,7 +53,7 @@ function objToObjCopy(s, t) {
 
                 h.auth.authorization_code = params.code
                 h.auth.setup(null, function () {
-                    window.location = window.location.origin + window.location.pathname
+                    location = location.origin + location.pathname
                 })
             } else {
                 var state = Math.random()
