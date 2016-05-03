@@ -61,7 +61,7 @@ var Href = (function () {
                             if (con[i].href) {
                                 var co = new Href()
 
-                                co.root_href = this.root_href || this
+                                co.root_href = this.root_href
 
                                 Object.assign(co, con[i])
 

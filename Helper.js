@@ -15,6 +15,7 @@ var VERBOSE = false
         return
 
     var h = new Href()
+    h.root_href = h
     h.href = 'https://crest-tq.eveonline.com/'
     h.get(function () {
         if (!h.authEndpoint) {
