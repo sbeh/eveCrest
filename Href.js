@@ -59,7 +59,31 @@ var Href = (function () {
                             rec(con[i])
 
                             if (con[i].href) {
-                                var co = new Href()
+                                var co
+                                if (// this object belongs to the current branch of this crest model tree or
+                                    con[i].href.indexOf(this.href) === 0 ||
+                                    // this object is a reference to somewhere outside of this crest api
+                                    con[i].href.indexOf(this.root_href.href) === -1)
+                                    co = new Href()
+                                else {
+                                    // this object belongs to another branch of this crest model tree
+                                    // it is just referenced from here
+                                    // example: a character can be found in a fleet or as author of a mail but its original location is in the list of characters
+                                    co = this.root_href
+
+                                    var path = con[i].href.substring(co.href.length).split('/')
+                                    var p = path.pop()
+                                    if (p)
+                                        path.push(p)
+                                    for (p in path) {
+                                        if (!co[path[p]]) {
+                                            co[path[p]] = new Href();
+                                            co[path[p]].href = this.root_href.href + path.slice(0, p).join('/') + '/'
+                                            co[path[p]].root_href = this.root_href
+                                        }
+                                        co = co[path[p]]
+                                    }
+                                }
 
                                 co.root_href = this.root_href
 
