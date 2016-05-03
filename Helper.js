@@ -51,15 +51,14 @@ var VERBOSE = false
                     location = location.origin + location.pathname
                 })
             } else {
-                var state = Math.random()
-                localStorage.state = state
+                localStorage.state = Math.random()
 
                 window.location = 'https://login.eveonline.com/oauth/authorize/?' +
                     'response_type=code&' +
                     'redirect_uri=' + encodeURIComponent(window.location.href) + '&' +
                     'client_id=' + APP + '&' +
                     'scope=characterLocationRead+fleetRead+fleetWrite&' +
-                    'state=' + state
+                    'state=' + localStorage.state
             }
         }
     })
