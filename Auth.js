@@ -4,6 +4,15 @@ function AuthError() { }
 
 var Auth = (function () {
     function Auth() { }
+    /**
+     * Sets up the authorization http header
+     * Tries to request a new authorization secret if the current expired
+     *
+     * @method setup
+     * @param {XMLHttpRequest} req
+     * @param {Function} call Will be executed when http header has been set
+     * @throws {AuthError} Will be thrown if no valid authorization secret was available
+     */
     Auth.prototype.setup = function (req, call) {
         if (this.loc && !this.token) {
             var stored = localStorage['auth ' + this.loc.href]

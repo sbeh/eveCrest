@@ -6,26 +6,36 @@ var VERBOSE = false
 
 
 (function startup() {
+    // Parse any parameters from current URL 
     var params = {};
     var p = location.search.substring(1).split(/[&=]/);
     for (var i = 0; i < p.length; i += 2)
         params[decodeURIComponent(p[i])] = decodeURIComponent(p[i + 1]);
 
+    // Don't do any initialization with parameter ?stepbystep set
     if (params.stepbystep)
         return
 
+    // Setup root container for any CREST activity
     var h = new Href()
+    //   Set root container as a reference to itself
     h.root_href = h
+    //   Setup CREST entry point URL
     h.href = 'https://crest-tq.eveonline.com/'
+    //    Start first test request
     h.get(function () {
+        // Check if request finished successfully
+        // https://crest-tq.eveonline.com/authEndpoint/ will link to EVE Single sign-on service and is expected to be always there
         if (!h.authEndpoint) {
             alert('EVE CREST API: Failed to GET ' + h.href)
 
             return
         }
 
+        // Setup access_token authentication for the CREST URL
         h.auth = new Auth()
         h.auth.loc = h
+        // Setup refresh_token authentication for the EVE Single sign-on
         h.auth.request_auth = new Href()
         h.auth.request_auth.href = h.authEndpoint.href
         h.auth.request_auth.auth = new Auth()

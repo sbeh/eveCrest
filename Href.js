@@ -2,6 +2,19 @@
 
 var Href = (function () {
     function Href() { }
+    /**
+     * This method wraps XMLHttpRequest and provides some useful debugging information in the browser's console.
+     * The http response's body needs to be empty or a valid JSON string, otherwise an error will be generated.
+     * The JSON string will be parsed into an object and given as an argument to 
+     * If the body is not empty and is not a which will be parsed and returned as a javascript object.
+     *
+     * @method request
+     * @param {Object} options
+     * @param {String} options.method If defined, will set the http method to use with this request. Otherwise "GET" will be used
+     * @param {Object} options.data If defined, data will be given to method XMLHttpRequest.send() to be send with this request
+     * @param {Function} options.setup If defined, function will be executed right before calling XMLHttpRequest.send()
+     * @param {Function} options.finish If defined, function will be executed when http request has been finished
+     */
     Href.prototype.request = function (options) {
         if (!options.method)
             options.method = 'GET'
@@ -38,6 +51,12 @@ var Href = (function () {
             req.send(options.data)
         }
     }
+    /**
+     * This method generates an http GET request and merges the JSON response into this instance of the current object
+     *
+     * @method get
+     * @param {Function} call If defined, function will be executed when http request has been finished
+     */
     Href.prototype.get = function (call) {
         this.request({
             method: 'GET',
@@ -103,6 +122,13 @@ var Href = (function () {
             }.bind(this)
         })
     }
+    /**
+     * This method generates an http POST request as if send from an html form.
+     *
+     * @method submit
+     * @param {Object} data Will be transformed into a string "property1=value1&property2=value2&prop..." and send as payload with the http request
+     * @param {Function} call If defined, function will be executed when http request has been finished
+     */
     Href.prototype.submit = function (data, call) {
         this.request({
             method: 'POST',
@@ -115,6 +141,13 @@ var Href = (function () {
             finish: call
         })
     }
+    /**
+     * This method generates an http POST request and serializes any given data into a JSON string to transfer it with the request
+     *
+     * @method post
+     * @param {Object} data Will be serialized into a JSON string
+     * @param {Function} call If defined, function will be executed when http request has been finished
+     */
     Href.prototype.post = function (data, call) {
         this.request({
             method: 'POST',
@@ -122,6 +155,13 @@ var Href = (function () {
             finish: call
         })
     }
+    /**
+     * This method generates an http PUT request and serializes any given data into a JSON string to transfer it with the request
+     *
+     * @method put
+     * @param {Object} data Will be serialized into a JSON string
+     * @param {Function} call If defined, function will be executed when http request has been finished
+     */
     Href.prototype.put = function (data, call) {
         this.request({
             method: 'PUT',
@@ -129,6 +169,12 @@ var Href = (function () {
             finish: call
         })
     }
+    /**
+     * This method generates an http DELETE request
+     *
+     * @method delete
+     * @param {Function} call If defined, function will be executed when http request has been finished
+     */
     Href.prototype.delete = function (call) {
         this.request({
             method: 'DELETE',
