@@ -6,9 +6,9 @@ var Auth = (function () {
     function Auth() { }
     Auth.prototype.setup = function (req, call) {
         if (this.loc && !this.token) {
-            var stored = JSON.parse(localStorage['auth ' + this.loc.href])
+            var stored = localStorage['auth ' + this.loc.href]
             if (stored)
-                objToObjCopy(stored, this)
+                objToObjCopy(JSON.parse(stored), this)
         }
 
         if (this.token && (!this.expire || this.expire > new Date())) {
