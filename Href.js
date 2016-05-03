@@ -16,6 +16,8 @@ var Href = (function () {
      * @param {Function} options.finish If defined, function will be executed when http request has been finished
      */
     Href.prototype.request = function (options) {
+        if (!options)
+            options = {}
         if (!options.method)
             options.method = 'GET'
 
