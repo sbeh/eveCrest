@@ -1,10 +1,10 @@
 ﻿'use strict'
 
 var Fleet = (function () {
-    OO.inherits(Fleet, Href)
-    function Fleet(href) {
-        this.href = href
-        this.root_href = eveApi
-    }
-    return Fleet
+	OO.inherits(Fleet, Href)
+	function Fleet(href) {
+		this.href = href
+		this.root_href = eveApi
+	}
+	return Fleet
 })()
