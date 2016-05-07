@@ -14,8 +14,8 @@ var Auth = (function () {
 	 * @throws {AuthError} Will be thrown if no valid authorization secret was available
 	 */
 	Auth.prototype.setup = function (req, call) {
-		if (this.loc && !this.token) {
-			var stored = localStorage['auth ' + this.loc.href]
+		if (this.store && this.loc && !this.token) {
+			var stored = this.store['auth ' + this.loc.href]
 			if (stored)
 				Object.assign(this, JSON.parse(stored))
 		}
@@ -47,12 +47,13 @@ var Auth = (function () {
 
 				this.refresh_token = res.refresh_token
 
-				localStorage['auth ' + this.loc.href] = JSON.stringify({
-					type: this.type,
-					token: this.token,
-					expire: this.expire,
-					refresh_token: this.refresh_token
-				})
+				if (this.store)
+					this.store['auth ' + this.loc.href] = JSON.stringify({
+						type: this.type,
+						token: this.token,
+						expire: this.expire,
+						refresh_token: this.refresh_token
+					})
 
 				if (req && req.setRequestHeader)
 					req.setRequestHeader('Authorization', this.type + ' ' + this.token)

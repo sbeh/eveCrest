@@ -35,6 +35,7 @@ var VERBOSE = false
 		// Setup access_token authentication for the CREST URL
 		h.auth = new Auth()
 		h.auth.loc = h
+		h.auth.store = localStorage
 		// Setup refresh_token authentication for the EVE Single sign-on
 		h.auth.request_auth = new Href()
 		h.auth.request_auth.href = h.authEndpoint.href
