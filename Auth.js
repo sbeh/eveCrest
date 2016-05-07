@@ -30,23 +30,13 @@ var Auth = (function () {
 		} else if (this.request_auth && (this.authorization_code || this.refresh_token)) {
 			// no access token available or current access token expired
 			// request an access token before the actual request
-			var data
-			if (this.authorization_code) {
-				// setup new SSO authorization, requesting first access_code
-				data = {
-					grant_type: 'authorization_code',
-					code: this.authorization_code
-				}
-				// authorization codes are one-time codes
-				delete this.authorization_code
-			} else
-				// SSO authorization known, requesting fresh access_code
-				data = {
-					grant_type: 'refresh_token',
-					refresh_token: this.refresh_token
-				}
 
-			this.request_auth.submit(data, function (res) {
+			if (this.authorization_code)
+				this.useAuthorizationCode(receivedToken.bind(this))
+			else
+				this.useRefreshToken(receivedToken.bind(this))
+
+			function receivedToken(res) {
 				if (!res.token_type || !res.access_token)
 					throw new AuthError('Failed to request first or fresh access_code from ' + this.request_auth.href)
 
@@ -69,9 +59,26 @@ var Auth = (function () {
 
 				if (call)
 					call()
-			}.bind(this))
+			}
 		} else
 			throw new AuthError('Failed to request first or fresh access_code from ' + this.request_auth.href)
+	}
+	Auth.prototype.useAuthorizationCode = function (call) {
+		// setup new SSO authorization, requesting first access_code
+		this.request_auth.submit({
+			grant_type: 'authorization_code',
+			code: this.authorization_code
+		}, call)
+
+		// authorization codes are one-time codes
+		delete this.authorization_code
+	}
+	Auth.prototype.useRefreshToken = function (call) {
+		// SSO authorization known, requesting fresh access_code
+		this.request_auth.submit({
+			grant_type: 'refresh_token',
+			refresh_token: this.refresh_token
+		}, call)
 	}
 	return Auth
 })()
