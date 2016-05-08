@@ -58,8 +58,7 @@ var VERBOSE = false
 			if (localStorage.state && localStorage.state === params.state) {
 				delete localStorage.state
 
-				href.auth.authorization_code = params.code
-				href.auth.setup(null, function () {
+				href.auth.useAuthorizationCode(params.code, function () {
 					location = location.origin + location.pathname
 				})
 			} else {
