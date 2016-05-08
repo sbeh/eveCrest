@@ -21,7 +21,7 @@ var Href = (function () {
 		if (!options.method)
 			options.method = 'GET'
 
-		if (VERBOSE)
+		if (typeof VERBOSE !== 'undefined' && VERBOSE)
 			console.log('>> ' + options.method + ' ' + this.href + (options.data ? '\n   ' + JSON.stringify(options.data) : ''))
 
 		var req = new XMLHttpRequest()
@@ -29,7 +29,7 @@ var Href = (function () {
 		//req.responseType = 'json'
 		req.onreadystatechange = function () {
 			if (this.readyState === XMLHttpRequest.DONE) {
-				if (VERBOSE)
+				if (typeof VERBOSE !== 'undefined' && VERBOSE)
 					console.log('<< ' + this.status + ' ' + this.response)
 
 				if (options.finish)
