@@ -27,20 +27,27 @@ var VERBOSE = false
 		// Check if request finished successfully
 		// https://crest-tq.eveonline.com/authEndpoint/ will link to EVE Single sign-on service and is expected to be always there
 		if (!href.authEndpoint) {
-			alert('EVE CREST API: Failed to GET ' + href.href)
+			alert('EVE CREST API: Unable to find authentication entry point at ' + href.href)
 
 			return
 		}
 
-		// Setup access_token authentication for the CREST URL
+		// Setup authentication for the CREST
+		// access_token is used with this endpoint
 		href.auth = new Auth()
 		href.auth.loc = href
 		href.auth.store = localStorage
-		// Setup refresh_token authentication for the EVE Single sign-on
+		// Setup endpoint to EVE Single sign-on
+		// authorization_code or refresh_token is given to this endpoint
+		// In return a new access_token for CREST is provided
 		href.auth.request_auth = new Href()
 		href.auth.request_auth.href = href.authEndpoint.href
+		// Setup authentication for EVE Single sign-on
+		// basic username and password is used to authenticate with this endpoint
 		href.auth.request_auth.auth = new Auth()
 		href.auth.request_auth.auth.loc = href.auth.request_auth
+		// 3rd party applications are registered on https://developers.eveonline.com/
+		// user and password belong to this application
 		href.auth.request_auth.auth.type = 'Basic'
 		href.auth.request_auth.auth.token = SECRET
 
