@@ -2,7 +2,7 @@
 
 var XMLHttpRequest
 if (typeof XMLHttpRequest === 'undefined')
-	XMLHttpRequest = require('../node_modules/xmlhttprequest/lib/XMLHttpRequest').XMLHttpRequest
+	XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 
 var Href = (function () {
 	function Href() { }
