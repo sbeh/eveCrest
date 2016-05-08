@@ -8,3 +8,4 @@ var Fleet = (function () {
 	}
 	return Fleet
 })()
+if (typeof module !== 'undefined') module.exports.Fleet = Fleet

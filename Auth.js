@@ -1,6 +1,7 @@
 ﻿'use strict'
 
 function AuthError() { }
+if (typeof module !== 'undefined') module.exports.AuthError = AuthError
 
 var Auth = (function () {
 	function Auth() { }
@@ -83,3 +84,5 @@ var Auth = (function () {
 	}
 	return Auth
 })()
+
+if (typeof module !== 'undefined') module.exports.Auth = Auth

@@ -189,3 +189,4 @@ var Href = (function () {
 	}
 	return Href
 })()
+if (typeof module !== 'undefined') module.exports.Href = Href
