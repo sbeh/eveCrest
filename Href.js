@@ -1,5 +1,9 @@
 'use strict'
 
+var XMLHttpRequest
+if (typeof XMLHttpRequest === 'undefined')
+	XMLHttpRequest = require('../node_modules/xmlhttprequest/lib/XMLHttpRequest').XMLHttpRequest
+
 var Href = (function () {
 	function Href() { }
 	/**
@@ -28,12 +32,12 @@ var Href = (function () {
 
 		//req.responseType = 'json'
 		req.onreadystatechange = function () {
-			if (this.readyState === XMLHttpRequest.DONE) {
+			if (this.readyState === /*XMLHttpRequest*/this.DONE) {
 				if (typeof VERBOSE !== 'undefined' && VERBOSE)
 					console.log('<< ' + this.status + ' ' + this.response)
 
 				if (options.finish)
-					options.finish(JSON.parse(this.response))
+					options.finish(JSON.parse(this.responseText))
 			}
 		}
 
