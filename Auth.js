@@ -33,14 +33,6 @@ var Auth = (function () {
 			// request an access token before the actual request
 
 			this.useRefreshToken(function (res) {
-				if (this.store)
-					this.store['auth ' + this.loc.href] = JSON.stringify({
-						type: this.type,
-						token: this.token,
-						expire: this.expire,
-						refresh_token: this.refresh_token
-					})
-
 				if (req && req.setRequestHeader)
 					req.setRequestHeader('Authorization', this.type + ' ' + this.token)
 
@@ -60,6 +52,14 @@ var Auth = (function () {
 			this.expire = new Date(new Date().getTime() + (res.expires_in - 60) * 1000)
 
 		this.refresh_token = res.refresh_token
+
+		if (this.store)
+			this.store['auth ' + this.loc.href] = JSON.stringify({
+				type: this.type,
+				token: this.token,
+				expire: this.expire,
+				refresh_token: this.refresh_token
+			})
 
 		if (call)
 			call()
