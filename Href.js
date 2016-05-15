@@ -4,6 +4,10 @@ var XMLHttpRequest
 if (typeof XMLHttpRequest === 'undefined')
 	XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 
+var Auth
+if (typeof Auth === 'undefined')
+	Auth = require('./Auth').Auth
+
 var Href = (function () {
 	function Href() { }
 	/**
