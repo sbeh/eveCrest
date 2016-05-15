@@ -198,7 +198,7 @@ var Href = (function () {
 		//   Set root container as a reference to itself
 		href.root_href = href
 		//   Setup CREST entry point URL
-		href.href = 'https://crest-tq.eveonline.com/'
+		href.href = url
 
 		if(call)
 			//    Start first test request
