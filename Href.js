@@ -37,7 +37,7 @@ var Href = (function () {
 					console.log('<< ' + this.status + ' ' + this.response)
 
 				if (options.finish)
-					options.finish(JSON.parse(this.responseText))
+					options.finish(typeof this.responseText === undefined  || this.responseText === '' ? undefined : JSON.parse(this.responseText))
 			}
 		}
 
