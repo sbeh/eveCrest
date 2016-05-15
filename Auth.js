@@ -17,8 +17,11 @@ var Auth = (function () {
 	Auth.prototype.setup = function (req, call) {
 		if (this.store && this.loc && !this.token) {
 			var stored = this.store['auth ' + this.loc.href]
-			if (stored)
+			if (stored) {
 				Object.assign(this, JSON.parse(stored))
+				if (this.expire)
+					this.expire = Date.parse(this.expire)
+			}
 		}
 
 		if (this.token && (!this.expire || this.expire > new Date())) {
