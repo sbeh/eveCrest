@@ -211,7 +211,7 @@ var Href = (function () {
 					return
 				}
 
-				cont()
+				cont(href.authEndpoint.href)
 
 				try {
 					href.auth.setup(null, function () {
@@ -225,12 +225,12 @@ var Href = (function () {
 				}
 			})
 		else {
-			cont()
+			cont('https://login-tq.eveonline.com/oauth/token/')
 
 			return href;
 		}
 
-		function cont() {
+		function cont(auth_url) {
 			// Setup authentication for the CREST
 			// access_token is used with this endpoint
 			href.auth = new Auth()
@@ -241,7 +241,7 @@ var Href = (function () {
 			// authorization_code or refresh_token is given to this endpoint
 			// In return a new access_token for CREST is provided
 			href.auth.request_auth = new Href()
-			href.auth.request_auth.href = href.authEndpoint.href
+			href.auth.request_auth.href = auth_url
 			// Setup authentication for EVE Single sign-on
 			// basic username and password is used to authenticate with this endpoint
 			href.auth.request_auth.auth = new Auth()
